@@ -19,13 +19,13 @@ classes= $(patsubst %.java, %.class, $(sources))
 	$(GCJ) $(GCJFLAGS) -c $< -o $@
 
 %.class : %.java
-	$(GCJ) $(GCJFLAGS) -C $<
+	$(GCJ) $(GCJFLAGS) $<
 
 # gcjh doesn't want the ".class" extension, so use
 # the "$*" automatic variable, here
 #
 %.h : %.class
-	$(GCJH) --classpath="." $*;
+	$(GCJH) -classpath="." `echo $* | awk '{gsub("/", "."); print}'`;
 	$(RM) $<
 
 ##

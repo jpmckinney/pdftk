@@ -27,8 +27,8 @@ else
 endif
 
 #
-export GCJFLAGS+= --encoding=UTF-8 --classpath="$(LIBGCJ):$(JAVALIBPATH):."
-export GCJHFLAGS+= --classpath="$(LIBGCJ):$(JAVALIBPATH):."
+export GCJFLAGS+= -encoding UTF-8 -classpath "$(LIBGCJ):$(JAVALIBPATH):."
+export GCJHFLAGS+= -classpath "$(LIBGCJ):$(JAVALIBPATH):."
 
 sources= $(wildcard com/lowagie/text/*.java)
 sources+= $(wildcard com/lowagie/text/markup/*.java)
@@ -62,15 +62,15 @@ endif
 .PRECIOUS : %.class
 
 %.class : %.java
-	$(GCJ) $(GCJFLAGS) -C $<
+	$(GCJ) $(GCJFLAGS) $<
 
 %.h : %.class
-	$(GCJH) $(GCJHFLAGS) $*
+	$(GCJH) $(GCJHFLAGS) `echo $* | awk '{gsub("/", "."); print}'`
 
 # don't create class list from java filenames because it omits local classes
 java_lib.o : $(headers) $(sources)
 	$(GJAR) -cf java_lib.jar com/lowagie/*/*/*/*.class com/lowagie/*/*/*.class com/lowagie/*/*.class org/bouncycastle/*/*.class org/bouncycastle/*/*/*.class $(afms)
-	$(GCJ) $(GCJFLAGS) -c java_lib.jar
+	$(GCJ) $(GCJFLAGS) -c java_lib.jar # @todo this is a problem
 
 ifdef GCJ_LOCAL_LIB
 $(GCJ_LOCAL_LIB) : $(libgcj_local_classes)

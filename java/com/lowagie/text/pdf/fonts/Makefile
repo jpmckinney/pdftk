@@ -23,7 +23,7 @@ afm_objects= $(patsubst %.afm, %.o, $(afms))
 	$(GCJ) $(GCJFLAGS) -c $< -o $@
 
 %.class : %.java
-	$(GCJ) $(GCJFLAGS) -C $<
+	$(GCJ) $(GCJFLAGS) $<
 
 # the --resource argument gives the name by which this resource is
 # referenced; I took this prefix from RESOURCE_PATH in BaseFont.java
@@ -34,7 +34,7 @@ afm_objects= $(patsubst %.afm, %.o, $(afms))
 # the "$*" automatic variable, here
 #
 %.h : %.class
-	$(GCJH) --classpath="." $*;
+	$(GCJH) -classpath="." `echo $* | awk '{gsub("/", "."); print}'`;
 	$(RM) $<
 
 ##

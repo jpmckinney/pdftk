@@ -28,13 +28,13 @@
 
 # tools
 # need direct path to libgcj for gcjh (starting in gcj 4.1.2 per Aurélien GÉRÔME)
-TOOLPATH=/sw/lib/gcc4.5/bin/
-export VERSUFF=-fsf-4.5
+TOOLPATH=/usr/bin/
+export VERSUFF=-4.2
 export CXX= $(TOOLPATH)g++$(VERSUFF)
-export GCJ= $(TOOLPATH)gcj$(VERSUFF)
-export GCJH= $(TOOLPATH)gcjh$(VERSUFF)
-export GJAR= $(TOOLPATH)gjar$(VERSUFF)
-export LIBGCJ= /sw/lib/gcc4.5/share/java/libgcj-4.5.0.jar
+export GCJ= javac
+export GCJH= javah
+export GJAR= jar
+export LIBGCJ= ../libgcj-4.4.3.jar
 export AR= ar
 export RM= rm
 export ARFLAGS= rs
@@ -74,8 +74,8 @@ export RMFLAGS= -vf
 export MACOSX_DEPLOYMENT_TARGET= 10.4
 export CPPFLAGS= -DPATH_DELIM=0x2f -DASK_ABOUT_WARNINGS=false -DUNBLOCK_SIGNALS -fdollars-in-identifiers -mmacosx-version-min=10.4
 export CXXFLAGS= -Wall -Wextra -Weffc++ -O2
-export GCJFLAGS= -Wall -fsource=1.3 -O2
+export GCJFLAGS= -Xlint -source 1.3
 export GCJHFLAGS= -force
-export LDLIBS= /sw/lib/gcc4.5/lib/libgcj.dylib /sw/lib/gcc4.5/lib/libstdc++.dylib /sw/lib/gcc4.5/lib/libgcc_s.1.dylib -liconv -lz
+export LDLIBS= /opt/pdflabs/pdftk/lib/libgcj.11.dylib /usr/lib/libstdc++.6.0.9.dylib /usr/lib/libgcc_s.10.5.dylib -liconv -lz
 
 include Makefile.Base
