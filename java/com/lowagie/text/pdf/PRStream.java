@@ -262,6 +262,7 @@ public class PRStream extends PdfStream {
                         crypto.prepareKey();
                     while (size > 0) {
                         int r = file.read(buf, 0, Math.min(size, buf.length));
+                        if (r < 0) break;
                         size -= r;
 
                         if (decrypt != null)
